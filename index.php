@@ -33,34 +33,34 @@
         class Persone {
 
             private $name;
-            private $surname;
+            private $surName;
             private $dataNascita;
     
-            public function __construct($name, $surname, $dataNascita) {
+            public function __construct($name, $surName) {
     
                 $this->name = $name;
-                $this->surnname = $surname;
+                $this->surName = $surName;
                
             }
 
             public function getName()
             {
-                return $this->name; 
+                return $this->name; //MI PRENDE IL VALORE
             }
             public function setName($name)
             {
-                return $this->$name; 
+                $this->name = $name; //DO IL VALORE E LO UTILIZZO
             }
             public function getSurname()
             {
-                return $this->surname; 
+                return $this->surName; 
             }
-            public function setSurname($surname)
+            public function setSurname($surName)
             {
-                return $this->$surname; 
+                $this->surName = $surName; 
             }
             public function getdataNascita() {
-                return $this-> $$dataNascita;
+                return $this-> dataNascita;
             }
             public function setdataNascita($dataNascita) {
                 $this->dataNascita = $dataNascita;
@@ -75,23 +75,36 @@
             public function __toString() {
     
                 return "name: " . $this->name . "<br>" 
-                    . "surname: " . $this->surname . "<br>"
-                    ."data di nascita: " . $this->dataNascita;;    
+                    . "surname: " . $this->surName . "<br>"
+                    ."data di nascita: " . $this->dataNascita;
             }
         }  
 
-        $p1 = new Persone("Gabriele", "Scaloni", "16-05-1993");
+        $p1 = new Persone("Gabriele", "Scaloni");
+        $p1->setdataNascita("10-34-1222");
         echo "Persone:<br>" . $p1 
             . "<br>- - - - - - - - - - - - -<br>";
     
         class Employee extends Persone {
-            
+
+            private $salary;
+
+            public function __construct($name, $surname, $stipendio){
+            parent:: __construct($name, $surname); //ACCETTA SOLO 2 PARAMETRI, POTREI UTILIZZARE ANCHE SETNAME O SETSURNAME
+
+                $this->salary = $stipendio; //non devono essere per forza uguali ma stipendio deve essere uguale al parametro sopra
+            }
+            public function __toString() {
+    
+                return "name: " . $this->getName(). "<br>" //uso il getname perchè ho i dati in private, se erano public bastava senza il metodo, solo l'attributo
+                    . "surname: " . $this->getSurname() . "<br>"
+                    ."salary: " . $this->salary;    
+            }
         }
 
-        $dipendente2 = new Employee("Franco", "Bianchi", "123");
-
+        $dipendente2 = new Employee("Franco", "Bianchi", "1500€");
         echo "Dipendente: <br>" . $dipendente2;
-    
+     
     ?>
     
 </body>
